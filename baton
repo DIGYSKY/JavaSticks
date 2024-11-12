@@ -27,7 +27,7 @@ help() {
   echo "Options:"
   echo "  --compile | -c : Compile the Java source files"
   echo "  --run | -r : Run the main class '$projectName'"
-  echo "  --both | -b | --compile-run | -cr : Compile and run the main class '$projectName'"
+  echo "  --compile-run | -cr : Compile and run the main class '$projectName'"
 }
 
 # Check the passed argument
@@ -38,7 +38,7 @@ case $1 in
   --run | -r)
     run
     ;;
-  --both | -b | --compile-run | -cr)
+  --compile-run | -cr)
     compile
     run
     ;;
