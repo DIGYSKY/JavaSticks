@@ -2,7 +2,7 @@ package src.utils;
 import java.util.Scanner;
 
 public class Scan {
-  public static Scanner sc = new Scanner(System.in);
+  private static Scanner sc = new Scanner(System.in);
 
   public static String scanString() {
     String nbScan = "";

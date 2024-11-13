@@ -17,6 +17,12 @@ Baton is a simple game of logic that consists in removing sticks from a table. T
 ./baton --run
 ```
 
+**For more information**
+
+```bash
+./baton --help
+```
+
 ## Requirements
 
 - Java 21 or higher
