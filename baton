@@ -23,7 +23,7 @@ run() {
 }
 
 help() {
-  echo "Usage: ./baton.sh [option]"
+  echo "Usage: ./baton [option]"
   echo "Options:"
   echo "  --compile | -c : Compile the Java source files"
   echo "  --run | -r : Run the main class '$projectName'"
