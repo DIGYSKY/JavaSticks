@@ -274,8 +274,6 @@ public class GameBaton {
         this.batonsList.set(randomPosition, false);
         this.lastBatonsTaken[index] = randomPosition + 1;
         System.out.println("L'ordinateur a retiré le baton " + (randomPosition + 1));
-    } else {
-        System.out.println("L'ordinateur n'a pas pu trouver un bâton à retirer.");
     }
   }
 

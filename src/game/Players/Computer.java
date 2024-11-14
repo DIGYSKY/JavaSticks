@@ -35,13 +35,13 @@ public class Computer {
   }
 
   private void level0() {
-    int random = ((int) (Math.random() * 3) + 1) % this.game.getBatons();
+    int random = ((int) (Math.random() * 3) + 1);
     this.takeBatons(random);
   }
 
   private void level1() {
     if (this.game.getBatons() > 3) {
-      int random = ((int) (Math.random() * 3) + 1) % this.game.getBatons();
+      int random = ((int) (Math.random() * 3) + 1);
       this.takeBatons(random);
     } else if (this.game.getBatons() > 2) {
       this.takeBatons(2);
@@ -54,7 +54,7 @@ public class Computer {
 
   private void level2() {
     if (this.game.getBatons() > 4) {
-      int random = ((int) (Math.random() * 3) + 1) % this.game.getBatons();
+      int random = ((int) (Math.random() * 3) + 1);
       this.takeBatons(random);
     } else if (this.game.getBatons() > 3) {
       this.takeBatons(3);
