@@ -16,7 +16,8 @@ public class GameBaton {
   private int currentPlayer = 1;
   private int batonsDefault = 20;
   private ArrayList<Boolean> batonsList = new ArrayList<>();
-  private String version = "1.0.0 Genesis";
+  private String version = "1.0.1 Genesis";
+  private int[] lastBatonsTaken = new int[3];
 
   public GameBaton() {
     String[] playerData = this.loadSave();
@@ -180,6 +181,10 @@ public class GameBaton {
       System.out.println("Score : " + this.player1.getScore() + " - " + this.player2.getScore());
       System.out.println("Niveaux : " + this.player1.getLevel() + " - " + this.player2.getLevel());
       System.out.println();
+      System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1] + " - " + this.lastBatonsTaken[2]);
+      System.out.println();
+      System.out.println("Batons restants : " + this.getBatons());
+      System.out.println();
 
       String batonsDisplay = "";
       String batonsPosition = "";
@@ -255,14 +260,29 @@ public class GameBaton {
     }
   }
 
-  public void takeBatonComputer() {
-    int randomPosition = (int) (Math.random() * this.batonsList.size());
+  public void takeBatonComputer(int index) {
+    int randomPosition;
+    int attempts = 0;
+    int maxAttempts = this.batonsList.size();
+
+    do {
+        randomPosition = (int) (Math.random() * this.batonsList.size());
+        attempts++;
+    } while (!this.batonsList.get(randomPosition) && attempts < maxAttempts);
+
     if (this.batonsList.get(randomPosition)) {
-      this.batonsList.set(randomPosition, false);
-      System.out.println("L'ordinateur a retiré le baton " + (randomPosition + 1));
+        this.batonsList.set(randomPosition, false);
+        this.lastBatonsTaken[index] = randomPosition + 1;
+        System.out.println("L'ordinateur a retiré le baton " + (randomPosition + 1));
     } else {
-      this.takeBatonComputer();
+        System.out.println("L'ordinateur n'a pas pu trouver un bâton à retirer.");
     }
+  }
+
+  public void resetLastBatonsTaken() {
+    this.lastBatonsTaken[0] = 0;
+    this.lastBatonsTaken[1] = 0;
+    this.lastBatonsTaken[2] = 0;
   }
 
   public int getBatons() {

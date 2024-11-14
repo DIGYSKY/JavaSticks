@@ -50,6 +50,7 @@ public class Player {
       System.out.println("Vous devez retirer entre 1 et 3 batons.");
       this.humanPlay();
     } else if ((batons.split(" ").length + this.takenBaton) <= 3) {
+      this.game.resetLastBatonsTaken();
       this.takenBaton = batons.split(" ").length;
       for (String baton : batons.split(" ")) {
         if (!this.game.takeBaton(Integer.parseInt(baton))) {
@@ -82,10 +83,10 @@ public class Player {
       if (this.score >= 50 && this.level < 1) {
         this.level++;
         return true;
-      } else if (this.score >= 150 && this.level < 2) {
+      } else if (this.score >= 100 && this.level < 2) {
         this.level++;
         return true;
-      } else if (this.score >= 300 && this.level < 3) {
+      } else if (this.score >= 150 && this.level < 3) {
         this.level++;
         return true;
       }

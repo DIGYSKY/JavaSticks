@@ -12,6 +12,7 @@ public class Computer {
   }
 
   public void play(int level) {
+    this.game.resetLastBatonsTaken();
     switch (level) {
       case 0:
         this.level0();
@@ -47,7 +48,7 @@ public class Computer {
     } else if (this.game.getBatons() > 1) {
       this.takeBatons(1);
     } else {
-      this.game.takeBatonComputer();
+      this.game.takeBatonComputer(0);
     }
   }
 
@@ -62,7 +63,7 @@ public class Computer {
     } else if (this.game.getBatons() > 1) {
       this.takeBatons(1);
     } else {
-      this.game.takeBatonComputer();
+      this.game.takeBatonComputer(0);
     }
   }
 
@@ -70,14 +71,16 @@ public class Computer {
     int remainingBatons = this.game.getBatons();
     int batonsToTake;
 
-    if (remainingBatons % 4 == 0) {
+    if (remainingBatons <= 4) {
+      batonsToTake = remainingBatons - 1;
+    } else if (remainingBatons % 4 == 0) {
       batonsToTake = 3;
-    } else if (remainingBatons % 4 == 3) {
-      batonsToTake = 2;
-    } else if (remainingBatons % 4 == 2) {
-      batonsToTake = 1;
     } else {
-      batonsToTake = 1 + (int) (Math.random() * 3);
+      batonsToTake = remainingBatons % 4;
+    }
+
+    if (remainingBatons - batonsToTake == 4) {
+      batonsToTake = 1;
     }
 
     this.takeBatons(batonsToTake);
@@ -85,7 +88,7 @@ public class Computer {
 
   private void takeBatons(int batons) {
     for (int i = 0; i < batons; i++) {
-      this.game.takeBatonComputer();
+      this.game.takeBatonComputer(i);
     }
   }
 }

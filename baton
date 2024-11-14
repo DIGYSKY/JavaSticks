@@ -2,6 +2,7 @@
 
 # Project variables
 projectName="Baton"
+version="1.0.0 Genesis"
 
 # Function to compile the Java source files
 compile() {
@@ -30,6 +31,10 @@ help() {
   echo "  --compile-run | -cr : Compile and run the main class '$projectName'"
 }
 
+showVersion() {
+  echo "Version: $version"
+}
+
 # Check the passed argument
 case $1 in
   --compile | -c)
@@ -44,6 +49,9 @@ case $1 in
     ;;
   --help | -h)
     help
+    ;;
+  --version | -v)
+    showVersion
     ;;
   *)
     echo "Invalid option."
