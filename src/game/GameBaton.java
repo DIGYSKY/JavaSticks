@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class GameBaton {
   private Player player1;
   private Player player2;
+  private String version = "Gaïa";
   private int currentPlayer = 1;
   private int batonsDefault = 20;
   private ArrayList<Boolean> batonsList = new ArrayList<>();
-  private String version = "Gaïa";
   private int[] lastBatonsTaken = new int[3];
 
   public GameBaton() {
@@ -175,43 +175,11 @@ public class GameBaton {
       if (this.batonsList.stream().filter(Boolean::booleanValue).count() <= 0)
         break;
 
-      Tools.clearConsole();
-      System.out.println("        Jeu du baton " + this.version);
-      System.out.println();
-      System.out
-          .println("Tour du joueur " + (this.currentPlayer == 1 ? this.player1.getName() : this.player2.getName()));
-      System.out.println();
-      System.out.println("Score : " + this.player1.getScore() + " - " + this.player2.getScore());
-      System.out.println("Niveaux : " + this.player1.getLevel() + " - " + this.player2.getLevel());
-      System.out.println();
-      System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1]
-          + " - " + this.lastBatonsTaken[2]);
-      System.out.println();
-      System.out.println("Batons restants : " + this.getBatons());
-      System.out.println();
-
-      String batonsDisplay = "";
-      String batonsPosition = "";
-
-      for (int i = 0; i < this.batonsList.size(); i++) {
-        batonsDisplay += this.batonsList.get(i) ? "|   " : (i > 8 ? "    " : "    ");
-        batonsPosition += (i + 1);
-
-        if (i >= 8) {
-          batonsPosition += "  ";
-        } else {
-          batonsPosition += "   ";
-        }
-      }
-
-      System.out.println(batonsDisplay);
-      System.out.println(batonsPosition);
-      System.out.println();
+      this.displayGame();
 
       if (this.currentPlayer == 1) {
         this.player1.gamePlay();
       } else {
-        System.out.println("Tour du joueur " + this.player2.getName());
         this.player2.gamePlay();
       }
 
@@ -219,6 +187,41 @@ public class GameBaton {
     }
 
     this.endGame();
+  }
+
+  public void displayGame() {
+    Tools.clearConsole();
+    System.out.println("        Jeu du baton " + this.version);
+    System.out.println();
+    System.out
+        .println("Tour du joueur " + (this.currentPlayer == 1 ? this.player1.getName() : this.player2.getName()));
+    System.out.println();
+    System.out.println("Score : " + this.player1.getScore() + " - " + this.player2.getScore());
+    System.out.println("Niveaux : " + this.player1.getLevel() + " - " + this.player2.getLevel());
+    System.out.println();
+    System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1]
+        + " - " + this.lastBatonsTaken[2]);
+    System.out.println();
+    System.out.println("Batons restants : " + this.getBatons());
+    System.out.println();
+
+    String batonsDisplay = "";
+    String batonsPosition = "";
+
+    for (int i = 0; i < this.batonsList.size(); i++) {
+      batonsDisplay += this.batonsList.get(i) ? "|   " : (i > 8 ? "    " : "    ");
+      batonsPosition += (i + 1);
+
+      if (i >= 8) {
+        batonsPosition += "  ";
+      } else {
+        batonsPosition += "   ";
+      }
+    }
+
+    System.out.println(batonsDisplay);
+    System.out.println(batonsPosition);
+    System.out.println();
   }
 
   private void endGame() {

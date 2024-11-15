@@ -4,13 +4,13 @@ import src.game.GameBaton;
 import src.utils.Scan;
 
 public class Player {
-  private String name;
-  private int score = 0;
-  private boolean isComputer = false;
   private GameBaton game;
+  private Computer computer;
+  private String name;
+  private boolean isComputer = false;
+  private int score = 0;
   private int level = 0;
   private int takenBaton = 0;
-  private Computer computer;
 
   public Player(String name) {
     this.name = name;
