@@ -16,7 +16,7 @@ public class GameBaton {
   private int currentPlayer = 1;
   private int batonsDefault = 20;
   private ArrayList<Boolean> batonsList = new ArrayList<>();
-  private String version = "Genesis";
+  private String version = "Gaïa";
   private int[] lastBatonsTaken = new int[3];
 
   public GameBaton() {

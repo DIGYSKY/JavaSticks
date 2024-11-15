@@ -2,7 +2,7 @@
 
 # Project variables
 projectName="Baton"
-version="1.0.3 Genesis"
+version="2.0.0 Gaïa"
 
 # Function to compile the Java source files
 compile() {
