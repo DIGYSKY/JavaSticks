@@ -97,7 +97,8 @@ public class GameBaton {
 
     System.out.println("        Jeu du baton " + this.version);
     System.out.println();
-    System.out.println("Le jeu du baton est un jeu de logique qui consiste retirer des batons de la table.\n Le but du jeu est de ne pas retirer le dernier baton de la table.\n");
+    System.out.println(
+        "Le jeu du baton est un jeu de logique qui consiste retirer des batons de la table.\n Le but du jeu est de ne pas retirer le dernier baton de la table.\n");
     System.out.println("Jouez-vous seul ou avec un autre joueur ?");
 
     String input = Scan.scanString().toLowerCase();
@@ -168,20 +169,23 @@ public class GameBaton {
       this.mainMenu();
     }
   }
-  
+
   private void gameLoop() {
     while (true) {
-      if (this.batonsList.stream().filter(Boolean::booleanValue).count() <= 0) break;
+      if (this.batonsList.stream().filter(Boolean::booleanValue).count() <= 0)
+        break;
 
       Tools.clearConsole();
       System.out.println("        Jeu du baton " + this.version);
       System.out.println();
-      System.out.println("Tour du joueur " + (this.currentPlayer == 1 ? this.player1.getName() : this.player2.getName()));
+      System.out
+          .println("Tour du joueur " + (this.currentPlayer == 1 ? this.player1.getName() : this.player2.getName()));
       System.out.println();
       System.out.println("Score : " + this.player1.getScore() + " - " + this.player2.getScore());
       System.out.println("Niveaux : " + this.player1.getLevel() + " - " + this.player2.getLevel());
       System.out.println();
-      System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1] + " - " + this.lastBatonsTaken[2]);
+      System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1]
+          + " - " + this.lastBatonsTaken[2]);
       System.out.println();
       System.out.println("Batons restants : " + this.getBatons());
       System.out.println();
@@ -244,7 +248,8 @@ public class GameBaton {
 
     this.saveGame();
 
-    System.out.println("Les scores finaux sont : " + this.player1.getName() + " : " + this.player1.getScore() + " et " + this.player2.getName() + " : " + this.player2.getScore());
+    System.out.println("Les scores finaux sont : " + this.player1.getName() + " : " + this.player1.getScore() + " et "
+        + this.player2.getName() + " : " + this.player2.getScore());
     Tools.sleepKeyboard();
     Tools.clearConsole();
 
@@ -266,14 +271,23 @@ public class GameBaton {
     int maxAttempts = this.batonsList.size();
 
     do {
-        randomPosition = (int) (Math.random() * this.batonsList.size());
-        attempts++;
+      randomPosition = (int) (Math.random() * this.batonsList.size());
+      attempts++;
     } while (!this.batonsList.get(randomPosition) && attempts < maxAttempts);
 
     if (this.batonsList.get(randomPosition)) {
-        this.batonsList.set(randomPosition, false);
-        this.lastBatonsTaken[index] = randomPosition + 1;
-        System.out.println("L'ordinateur a retiré le baton " + (randomPosition + 1));
+      this.batonsList.set(randomPosition, false);
+      this.lastBatonsTaken[index] = randomPosition + 1;
+      System.out.println("L'ordinateur a retiré le bâton " + (randomPosition + 1));
+    } else {
+      for (int i = 0; i < this.batonsList.size(); i++) {
+        if (this.batonsList.get(i)) {
+          this.batonsList.set(i, false);
+          this.lastBatonsTaken[index] = i + 1;
+          System.out.println("L'ordinateur a retiré le dernier bâton " + (i + 1));
+          break;
+        }
+      }
     }
   }
 

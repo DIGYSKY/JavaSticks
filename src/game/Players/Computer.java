@@ -31,7 +31,7 @@ public class Computer {
         break;
     }
 
-    Tools.sleep(1500);
+    Tools.sleepKeyboard();
   }
 
   private void level0() {
@@ -71,16 +71,21 @@ public class Computer {
     int remainingBatons = this.game.getBatons();
     int batonsToTake;
 
-    if (remainingBatons <= 4) {
-      batonsToTake = remainingBatons - 1;
-    } else if (remainingBatons % 4 == 0) {
-      batonsToTake = 3;
-    } else {
-      batonsToTake = remainingBatons % 4;
-    }
-
-    if (remainingBatons - batonsToTake == 4) {
+    if (remainingBatons == 1) {
       batonsToTake = 1;
+    } else if (remainingBatons <= 4) {
+      batonsToTake = remainingBatons - 1;
+    } else {
+      int modulo = remainingBatons % 4;
+      if (modulo == 1) {
+        batonsToTake = 1;
+      } else if (modulo == 0) {
+        batonsToTake = 3;
+      } else if (modulo == 2) {
+        batonsToTake = 1;
+      } else {
+        batonsToTake = 2;
+      }
     }
 
     this.takeBatons(batonsToTake);
