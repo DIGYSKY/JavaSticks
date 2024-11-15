@@ -2,7 +2,7 @@
 
 # Project variables
 projectName="Baton"
-version="1.0.0 Genesis"
+version="1.0.2 Genesis"
 
 # Function to compile the Java source files
 compile() {
@@ -29,6 +29,8 @@ help() {
   echo "  --compile | -c : Compile the Java source files"
   echo "  --run | -r : Run the main class '$projectName'"
   echo "  --compile-run | -cr : Compile and run the main class '$projectName'"
+  echo "  --help | -h : Show this help message"
+  echo "  --version | -v : Show the version of the program"
 }
 
 showVersion() {

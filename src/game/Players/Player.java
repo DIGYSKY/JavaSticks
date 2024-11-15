@@ -83,10 +83,10 @@ public class Player {
       if (this.score >= 50 && this.level < 1) {
         this.level++;
         return true;
-      } else if (this.score >= 100 && this.level < 2) {
+      } else if (this.score >= 150 && this.level < 2) {
         this.level++;
         return true;
-      } else if (this.score >= 150 && this.level < 3) {
+      } else if (this.score >= 300 && this.level < 3) {
         this.level++;
         return true;
       }
