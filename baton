@@ -2,7 +2,7 @@
 
 # Project variables
 projectName="Baton"
-version="2.0.0 Gaïa"
+version="2.0.0 Origin"
 
 # Function to compile the Java source files
 compile() {
@@ -10,7 +10,7 @@ compile() {
   rm -rf ./bin
   mkdir ./bin
   # Find all Java files in src and compile them
-  find ./src -name "*.java" -print | xargs javac -d ./bin
+  find ./src -name "*.java" -print | xargs javac -cp "./lib/*" -d ./bin
   echo "Compilation completed."
 }
 
@@ -20,7 +20,7 @@ run() {
   echo " "
   echo " "
   echo " "
-  java -cp ./bin src.$projectName
+  java -cp "./bin:./lib/*" src.Baton
 }
 
 help() {

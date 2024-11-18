@@ -2,7 +2,7 @@ package src.game.Players;
 
 import src.game.GameBaton;
 import src.utils.Scan;
-
+import src.utils.Tools;
 public class Player {
   private GameBaton game;
   private Computer computer;
@@ -11,6 +11,7 @@ public class Player {
   private int score = 0;
   private int level = 0;
   private int takenBaton = 0;
+  private int position = 0;
 
   public Player(String name) {
     this.name = name;
@@ -38,7 +39,7 @@ public class Player {
     if (this.isComputer) {
       this.computer.play(this.level);
     } else {
-      this.humanPlay();
+      this.humanPlayKey();
     }
   }
 
@@ -63,6 +64,12 @@ public class Player {
       System.out.println("Vous ne pouvez retirer que 3 batons maximum.");
       this.humanPlay();
     }
+  }
+
+  private void humanPlayKey() {
+    char key = Scan.scanKey();
+    System.out.println(key);
+    Tools.sleepKeyboard();
   }
 
   public void setGame(GameBaton game) {
@@ -107,5 +114,13 @@ public class Player {
 
   public void setIsComputer(boolean isComputer) {
     this.isComputer = isComputer;
+  }
+
+  public void setPosition(int position) {
+    this.position = position;
+  }
+
+  public int getPosition() {
+    return this.position;
   }
 }

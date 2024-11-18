@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class GameBaton {
   private Player player1;
   private Player player2;
-  private String version = "Gaïa";
+  private String version = "Origin";
   private int currentPlayer = 1;
   private int batonsDefault = 20;
   private ArrayList<Boolean> batonsList = new ArrayList<>();
@@ -190,17 +190,19 @@ public class GameBaton {
   }
 
   public void displayGame() {
+    this.displayGame(this.currentPlayer == 1 ? this.player1.getPosition() : this.player2.getPosition());
+  }
+
+  public void displayGame(int position) {
     Tools.clearConsole();
     System.out.println("        Jeu du baton " + this.version);
     System.out.println();
-    System.out
-        .println("Tour du joueur " + (this.currentPlayer == 1 ? this.player1.getName() : this.player2.getName()));
+    System.out.println("Tour du joueur " + (this.currentPlayer == 1 ? this.player1.getName() : this.player2.getName()));
     System.out.println();
     System.out.println("Score : " + this.player1.getScore() + " - " + this.player2.getScore());
     System.out.println("Niveaux : " + this.player1.getLevel() + " - " + this.player2.getLevel());
     System.out.println();
-    System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1]
-        + " - " + this.lastBatonsTaken[2]);
+    System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1] + " - " + this.lastBatonsTaken[2]);
     System.out.println();
     System.out.println("Batons restants : " + this.getBatons());
     System.out.println();
@@ -209,14 +211,8 @@ public class GameBaton {
     String batonsPosition = "";
 
     for (int i = 0; i < this.batonsList.size(); i++) {
-      batonsDisplay += this.batonsList.get(i) ? "|   " : (i > 8 ? "    " : "    ");
-      batonsPosition += (i + 1);
-
-      if (i >= 8) {
-        batonsPosition += "  ";
-      } else {
-        batonsPosition += "   ";
-      }
+      batonsDisplay += this.batonsList.get(i) ? "|   " : "    ";
+      batonsPosition += (i + 1) == position ? "X   " : "    ";
     }
 
     System.out.println(batonsDisplay);
