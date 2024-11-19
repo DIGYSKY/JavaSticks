@@ -2,7 +2,7 @@ package src.game.Players;
 
 import src.game.GameBaton;
 import src.utils.Scan;
-import src.utils.Tools;
+
 public class Player {
   private GameBaton game;
   private Computer computer;
@@ -10,8 +10,8 @@ public class Player {
   private boolean isComputer = false;
   private int score = 0;
   private int level = 0;
+  private int position = 1;
   private int takenBaton = 0;
-  private int position = 0;
 
   public Player(String name) {
     this.name = name;
@@ -35,41 +35,34 @@ public class Player {
   }
 
   public void gamePlay() {
-    this.takenBaton = 0;
     if (this.isComputer) {
       this.computer.play(this.level);
     } else {
-      this.humanPlayKey();
+      this.humanPlayLoop();
     }
   }
 
-  private void humanPlay() {
-    System.out.println("Votre tour... Quels batons voulez-vous retirer ? \nNoter les positions des batons à retirer (ex : 1 2 3)");
-    String batons = Scan.scanString();
-
-    if (batons.split(" ").length < 1 || batons.split(" ").length > 3) {
-      System.out.println("Vous devez retirer entre 1 et 3 batons.");
-      this.humanPlay();
-    } else if ((batons.split(" ").length + this.takenBaton) <= 3) {
-      this.game.resetLastBatonsTaken();
-      this.takenBaton = batons.split(" ").length;
-      for (String baton : batons.split(" ")) {
-        if (!this.game.takeBaton(Integer.parseInt(baton))) {
-          System.out.println("Vous ne pouvez pas retirer ce baton. " + baton);
-          this.humanPlay();
-          return;
+  private void humanPlayLoop() {
+    this.takenBaton = 0;
+    while (this.takenBaton < 3) {
+      char key = Scan.scanKey();
+      if (key == 'q') {
+        this.setPosition(this.getPosition() - 1);
+      } else if (key == 'd') {
+        this.setPosition(this.getPosition() + 1);
+      } else if (key == 'z') {
+        if (this.game.takeBaton(this.getPosition())) {
+          this.takenBaton++;
         }
+      } else if (key == '\n') {
+        if (this.takenBaton > 0) {
+          break;
+        }
+      } else if (key == '\u001B') {
+        this.game.menuInGame();
       }
-    } else {
-      System.out.println("Vous ne pouvez retirer que 3 batons maximum.");
-      this.humanPlay();
+      this.game.displayGame(this.getPosition());
     }
-  }
-
-  private void humanPlayKey() {
-    char key = Scan.scanKey();
-    System.out.println(key);
-    Tools.sleepKeyboard();
   }
 
   public void setGame(GameBaton game) {
@@ -118,6 +111,11 @@ public class Player {
 
   public void setPosition(int position) {
     this.position = position;
+    if (this.position < 1) {
+      this.position = this.game.batonsDefault;
+    } else if (this.position > this.game.batonsDefault) {
+      this.position = 1;
+    }
   }
 
   public int getPosition() {

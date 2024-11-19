@@ -2,7 +2,7 @@
 
 # Project variables
 projectName="Baton"
-version="2.0.0 Origin"
+version="2.0.0-1.0.0 Origin (Bêta)"
 
 # Function to compile the Java source files
 compile() {

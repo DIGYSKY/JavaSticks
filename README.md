@@ -27,7 +27,17 @@ Baton is a simple game of logic that consists in removing sticks from a table. T
 
 - Java 21 or higher
 
+## Versions
 
+### Origin
+
+- 2.0.0-0.0.0 (Alpha)
+  - This version integrate a new immersive game play
+
+### Genesis
+
+- 1.0.3 (Stable)
+  - This version is the first stable version of the game
 ## Author
 
 - [@DIGYSKY](https://github.com/DIGYSKY)

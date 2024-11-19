@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class GameBaton {
   private Player player1;
   private Player player2;
-  private String version = "Origin";
+  private String version = "Origin (Bêta)";
   private int currentPlayer = 1;
-  private int batonsDefault = 20;
+  public int batonsDefault = 20;
   private ArrayList<Boolean> batonsList = new ArrayList<>();
   private int[] lastBatonsTaken = new int[3];
 
@@ -24,22 +24,25 @@ public class GameBaton {
     if (playerData != null) {
       System.out.println("Sauvegarde trouvée !");
       System.out.println("Voulez-vous charger la sauvegarde ? (o/n)");
-      String input = Scan.scanString().toLowerCase();
-      if (input.equals("o")) {
-        Tools.clearConsole();
-        System.out.println("Chargement de la sauvegarde...");
-        this.player1 = new Player(playerData[0]);
-        this.player1.setScore(Integer.parseInt(playerData[1]));
-        this.player1.setLevel(Integer.parseInt(playerData[2]));
-        this.player1.setIsComputer(Boolean.parseBoolean(playerData[3]));
-        this.player1.setGame(this);
-        this.player2 = new Player(playerData[4]);
-        this.player2.setScore(Integer.parseInt(playerData[5]));
-        this.player2.setLevel(Integer.parseInt(playerData[6]));
-        this.player2.setIsComputer(Boolean.parseBoolean(playerData[7]));
-        this.player2.setGame(this);
-        Tools.clearConsole();
-        System.out.println("Sauvegarde chargée !");
+      while (true) {
+        char input = Scan.scanKey();
+        if (input == 'o' || input == '\u001B') {
+          Tools.clearConsole();
+          System.out.println("Chargement de la sauvegarde...");
+          this.player1 = new Player(playerData[0]);
+          this.player1.setScore(Integer.parseInt(playerData[1]));
+          this.player1.setLevel(Integer.parseInt(playerData[2]));
+          this.player1.setIsComputer(Boolean.parseBoolean(playerData[3]));
+          this.player1.setGame(this);
+          this.player2 = new Player(playerData[4]);
+          this.player2.setScore(Integer.parseInt(playerData[5]));
+          this.player2.setLevel(Integer.parseInt(playerData[6]));
+          this.player2.setIsComputer(Boolean.parseBoolean(playerData[7]));
+          this.player2.setGame(this);
+          Tools.clearConsole();
+          System.out.println("Sauvegarde chargée !");
+          break;
+        }
       }
     }
 
@@ -145,7 +148,7 @@ public class GameBaton {
   private void mainMenu() {
     Tools.clearConsole();
 
-    System.out.println("        Menu du jeu du baton " + this.version);
+    System.out.println("        Menu du jeu Baton " + this.version);
     System.out.println();
     System.out.println("Niveaux :");
     System.out.println("  " + this.player1.getName() + " : " + this.player1.getLevel());
@@ -158,15 +161,42 @@ public class GameBaton {
     System.out.println("1. Rejouer");
     System.out.println("2. Quitter");
 
-    String input = Scan.scanString();
+    while (true) {
+      char input = Scan.scanKey();
 
-    if (input.equals("1")) {
-      this.initGame();
-    } else if (input.equals("2")) {
-      System.out.println("Au revoir !");
-      System.exit(0);
-    } else {
-      this.mainMenu();
+      if (input == '1' || input == '\u001B') {
+        this.initGame();
+      } else if (input == '2') {
+        System.out.println("Au revoir !");
+        System.exit(0);
+      }
+    }
+  }
+
+  public void menuInGame() {
+    Tools.clearConsole();
+
+    System.out.println("        Menu du jeu Baton " + this.version);
+    System.out.println();
+    System.out.println("Niveaux :");
+    System.out.println("  " + this.player1.getName() + " : " + this.player1.getLevel());
+    System.out.println("  " + this.player2.getName() + " : " + this.player2.getLevel());
+    System.out.println();
+    System.out.println("Scores :");
+    System.out.println("  " + this.player1.getName() + " : " + this.player1.getScore());
+    System.out.println("  " + this.player2.getName() + " : " + this.player2.getScore());
+    System.out.println();
+    System.out.println("1. Reprendre la partie");
+    System.out.println("2. Quitter");
+
+    while (true) {
+      char input = Scan.scanKey();
+      if (input == '1' || input == '\u001B') {
+        this.displayGame();
+        break;
+      } else if (input == '2') {
+        System.exit(0);
+      }
     }
   }
 
@@ -190,7 +220,7 @@ public class GameBaton {
   }
 
   public void displayGame() {
-    this.displayGame(this.currentPlayer == 1 ? this.player1.getPosition() : this.player2.getPosition());
+    this.displayGame(this.currentPlayer == 1 ? this.player1.getPosition() : (this.player2.isComputer() ? 0 : this.player2.getPosition()));
   }
 
   public void displayGame(int position) {
@@ -256,9 +286,11 @@ public class GameBaton {
   }
 
   public boolean takeBaton(int position) {
+    boolean success = false;
     try {
+      success = this.batonsList.get(position - 1);
       this.batonsList.set(position - 1, false);
-      return true;
+      return success;
     } catch (Exception e) {
       return false;
     }
