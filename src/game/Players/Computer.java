@@ -30,8 +30,6 @@ public class Computer {
         this.level3();
         break;
     }
-
-    Tools.sleepKeyboard();
   }
 
   private void level0() {
@@ -48,7 +46,7 @@ public class Computer {
     } else if (this.game.getBatons() > 1) {
       this.takeBatons(1);
     } else {
-      this.game.takeBatonComputer(0);
+      this.takeBatons(1);
     }
   }
 
@@ -63,7 +61,7 @@ public class Computer {
     } else if (this.game.getBatons() > 1) {
       this.takeBatons(1);
     } else {
-      this.game.takeBatonComputer(0);
+      this.takeBatons(1);
     }
   }
 

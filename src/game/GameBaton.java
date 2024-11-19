@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class GameBaton {
   private Player player1;
   private Player player2;
-  private String version = "Origin (Bêta)";
+  private String version = "Origin";
   private int currentPlayer = 1;
   public int batonsDefault = 20;
   private ArrayList<Boolean> batonsList = new ArrayList<>();
@@ -22,6 +22,7 @@ public class GameBaton {
   public GameBaton() {
     String[] playerData = this.loadSave();
     if (playerData != null) {
+      Tools.clearConsole();
       System.out.println("Sauvegarde trouvée !");
       System.out.println("Voulez-vous charger la sauvegarde ? (o/n)");
       while (true) {
@@ -41,6 +42,8 @@ public class GameBaton {
           this.player2.setGame(this);
           Tools.clearConsole();
           System.out.println("Sauvegarde chargée !");
+          break;
+        } else if (input == 'n') {
           break;
         }
       }
@@ -148,7 +151,7 @@ public class GameBaton {
   private void mainMenu() {
     Tools.clearConsole();
 
-    System.out.println("        Menu du jeu Baton " + this.version);
+    System.out.println("        Menu Baton " + this.version);
     System.out.println();
     System.out.println("Niveaux :");
     System.out.println("  " + this.player1.getName() + " : " + this.player1.getLevel());
@@ -176,7 +179,7 @@ public class GameBaton {
   public void menuInGame() {
     Tools.clearConsole();
 
-    System.out.println("        Menu du jeu Baton " + this.version);
+    System.out.println("        Menu Baton " + this.version);
     System.out.println();
     System.out.println("Niveaux :");
     System.out.println("  " + this.player1.getName() + " : " + this.player1.getLevel());
@@ -225,16 +228,13 @@ public class GameBaton {
 
   public void displayGame(int position) {
     Tools.clearConsole();
-    System.out.println("        Jeu du baton " + this.version);
+    System.out.println("        Baton " + this.version);
+    System.out.println();
+    System.out.println("Appuyez sur - Echap - pour mettre en pause");
     System.out.println();
     System.out.println("Tour du joueur " + (this.currentPlayer == 1 ? this.player1.getName() : this.player2.getName()));
     System.out.println();
-    System.out.println("Score : " + this.player1.getScore() + " - " + this.player2.getScore());
-    System.out.println("Niveaux : " + this.player1.getLevel() + " - " + this.player2.getLevel());
-    System.out.println();
     System.out.println("Derniers batons retirés : " + this.lastBatonsTaken[0] + " - " + this.lastBatonsTaken[1] + " - " + this.lastBatonsTaken[2]);
-    System.out.println();
-    System.out.println("Batons restants : " + this.getBatons());
     System.out.println();
 
     String batonsDisplay = "";
@@ -309,7 +309,9 @@ public class GameBaton {
     if (this.batonsList.get(randomPosition)) {
       this.batonsList.set(randomPosition, false);
       this.lastBatonsTaken[index] = randomPosition + 1;
+      this.displayGame();
       System.out.println("L'ordinateur a retiré le bâton " + (randomPosition + 1));
+      Tools.sleep(1000);
     } else {
       for (int i = 0; i < this.batonsList.size(); i++) {
         if (this.batonsList.get(i)) {

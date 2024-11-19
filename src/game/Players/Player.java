@@ -48,11 +48,14 @@ public class Player {
       char key = Scan.scanKey();
       if (key == 'q') {
         this.setPosition(this.getPosition() - 1);
+        this.game.displayGame(this.getPosition());
       } else if (key == 'd') {
         this.setPosition(this.getPosition() + 1);
+        this.game.displayGame(this.getPosition());
       } else if (key == 'z') {
         if (this.game.takeBaton(this.getPosition())) {
           this.takenBaton++;
+          this.game.displayGame(this.getPosition());
         }
       } else if (key == '\n') {
         if (this.takenBaton > 0) {
@@ -61,7 +64,6 @@ public class Player {
       } else if (key == '\u001B') {
         this.game.menuInGame();
       }
-      this.game.displayGame(this.getPosition());
     }
   }
 
