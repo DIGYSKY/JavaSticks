@@ -203,9 +203,13 @@ public class GameBaton {
     }
   }
 
+  public boolean isGameOver() {
+    return this.getBatons() <= 0;
+  }
+
   private void gameLoop() {
     while (true) {
-      if (this.batonsList.stream().filter(Boolean::booleanValue).count() <= 0)
+      if (this.isGameOver())
         break;
 
       this.displayGame();

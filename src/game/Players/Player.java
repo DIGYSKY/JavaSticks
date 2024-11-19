@@ -45,6 +45,9 @@ public class Player {
   private void humanPlayLoop() {
     this.takenBaton = 0;
     while (this.takenBaton < 3) {
+      if (this.game.isGameOver())
+        break;
+      
       char key = Scan.scanKey();
       if (key == 'q') {
         this.setPosition(this.getPosition() - 1);
